@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "mariadb": "^3.3.0",
+    "mysql2": "^3.9.8",
+    "save": "^2.9.0"
+  }
+}

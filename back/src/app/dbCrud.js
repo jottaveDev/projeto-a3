@@ -3,7 +3,7 @@ const conexaoDB=require('./db')//recebe os parametros para conexão com o banco 
 const  receberUser = async ()=>{ // ---------------- FUNÇÃO SELECT -------------------------
   const con = await conexaoDB.conectar()
   
-  const sql = 'SELECT * FROM use'
+  const sql = 'SELECT * FROM user'
 
   const [linhas] = await con.query(sql)
   return await linhas
