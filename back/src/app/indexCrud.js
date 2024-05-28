@@ -11,12 +11,17 @@
     //Chamada da função para inseir usuario, sem retorno
     //await db.insertUser({nome: nome, senha: senha})
 
+    //Chamada da função para inseir tarefas no usuario, sem retorno
+    //await db.insertTaskUser('teste para inserir tarefa',2)
+
     //Chamada da função para atualizar usuario, sem retorno 
     //await db.atualizaUser(id,{nome: nome, senha: senha})
 
     //Chamada da função para deletar usuario, sem retorno
     //await db.deletaUser(id)
     //await db.atualizaTaskUser({txt:txtTask,id:3}) 
+
+    //Chamada da função para selecionar tarefas do usuario
     // console.log('Select de todas as tarefas do usuario')
     // const task = await db.receberTaskUser({id:2})
     // console.log(task)

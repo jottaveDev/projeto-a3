@@ -13,11 +13,11 @@ const  receberUser = async ()=>{ // ---------------- FUNÇÃO SELECT USER-------
   
 }
 
-const  receberTaskUser = async (task)=>{ // ---------------- FUNÇÃO SELECT TASK-------------------------
+const  receberTaskUser = async (user)=>{ // ---------------- FUNÇÃO SELECT TASK-------------------------
   const con = await conexaoDB.conectar()
   
   const sql = 'SELECT * FROM `task` WHERE task.user_id_fk = ?'
-  const valores =[task.id]
+  const valores =[user.id]
 
   const [linhas] = await con.query(sql,valores)
   return await linhas
@@ -35,11 +35,11 @@ const  insertUser = async (user)=>{//--------------------------- FUNÇÃO INSERT
   
 }
 
-const  insertTaskUser = async (idUser, user)=>{//--------------------------- FUNÇÃO INSERT TASK ----------------------
+const  insertTaskUser = async (task,idUser)=>{//--------------------------- FUNÇÃO INSERT TASK ----------------------
   const con = await conexaoDB.conectar()
   
-  const sql = 'INSERT INTO `task` (`id_task`, `task_task`, `user_id_fk`) VALUES (NULL, ?, idUser);'
-  const valores =[user.task] 
+  const sql = 'INSERT INTO `task` (`id_task`, `task_task`, `user_id_fk`) VALUES (NULL, ?, ?);'
+  const valores =[task,idUser] 
   await con.query(sql,valores) 
   
 }
@@ -84,4 +84,4 @@ const  deletaTaskUser = async (idUser)=>{ //--------------------------- FUNÇÃO
   
 }
 
-module.exports = {receberUser,receberTaskUser,insertUser,atualizaUser,atualizaTaskUser,deletaUser,deletaTaskUser}
+module.exports = {receberUser,receberTaskUser,insertUser,insertTaskUser,atualizaUser,atualizaTaskUser,deletaUser,deletaTaskUser}
