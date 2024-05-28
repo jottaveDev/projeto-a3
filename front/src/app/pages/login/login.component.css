@@ -68,6 +68,10 @@
   font-weight: 600;
 }
 
+.embrulho button:disabled {
+  opacity: 0.3;
+}
+
 .embrulho .link-resgistro {
   font-size: 14.5px;
   text-align: center;

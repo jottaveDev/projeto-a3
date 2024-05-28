@@ -1,14 +1,14 @@
 <div class="conteiner">
     <div class="embrulho">
-        <form action="">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <h1>Login</h1>
             <div class="caixa-texto">
-                <input type="text" placeholder="Usuário" required>
+                <input type="text" placeholder="Email" formControlName="email">
             </div>
             <div class="caixa-texto">
-                <input type="password" placeholder="Senha" required>
+                <input type="password" placeholder="Senha" formControlName="password">
             </div>
-            <button>Login</button>
+            <button type="submit" [disabled]="form.invalid">Login</button>
             <div class="link-resgistro">
                 <p>Não tem uma conta? <a (click)="navigateByRegister()">Registre-se!</a></p>
             </div>

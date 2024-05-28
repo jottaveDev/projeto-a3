@@ -1,17 +1,17 @@
 <div class="conteiner">
     <div class="embrulho">
-        <form action="">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <h1>Registrar</h1>
             <div class="caixa-texto">
-                <input type="text" placeholder="Usuário" required>
+                <input type="text" placeholder="Nome" formControlName="name">
             </div>
             <div class="caixa-texto">
-                <input type="Email" placeholder="Email" required>
+                <input type="Email" placeholder="Email" formControlName="email">
             </div>
             <div class="caixa-texto">
-                <input type="password" placeholder="Senha" required>
+                <input type="password" placeholder="Senha" formControlName="password">
             </div>
-            <button>Registrar</button>
-                   </form>
+            <button type="submit" [disabled]="form.invalid">Registrar</button>
+        </form>
     </div>
 </div>
