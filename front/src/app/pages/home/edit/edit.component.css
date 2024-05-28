@@ -1,0 +1,58 @@
+.container {
+  background-image: url("../../../../assets/backgroud-marinho.jpg");
+  color: #fff;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.conteudo {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 450px;
+  background: #2b2a2a;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.topo {
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+  margin-bottom: 35px;
+}
+
+.title {
+  text-align: center;
+  padding-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.topo input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #191818;
+  outline: none;
+  font-size: 1.2rem;
+  background: #191818;
+  color: #fff;
+}
+
+#btnAddTarefa {
+  width: 45px;
+  border-radius: 12px;
+  border: 1px solid #191818;
+  background: #191818;
+  color: #fff;
+  outline: none;
+}
+
+#btnAddTarefa:hover {
+  background: #1f1e1e;
+  cursor: pointer;
+  transform: scale(1.1);
+}

@@ -1,0 +1,9 @@
+<section class="container">
+  <div class="conteudo">
+    <h1 class="title">Editar Tarefa</h1>
+    <form class="topo" (ngSubmit)="edit(task)">
+      <input type="text" id="inputNovaTarefa" name="task" [(ngModel)]="task.title" />
+      <button id="btnAddTarefa" type="submit"><i class="fa fa-edit"></i></button>
+    </form>
+  </div>
+</section>
