@@ -1,24 +1,21 @@
+<div class="bg"></div>
 <section class="container">
   <div class="conteudo">
-    <div class="topo">
-      <input
-        type="text"
-        id="inputNovaTarefa"
-        placeholder="Adicione uma nova tarefa"
-      />
+    <h1 class="title">Lista de Tarefas</h1>
+    <form class="topo" (ngSubmit)="addTask(inputValue)">
+      <input type="text" id="inputNovaTarefa" name="task" placeholder="Adicione uma nova tarefa" [(ngModel)]="inputValue" />
       <button id="btnAddTarefa"><i class="fa fa-plus"></i></button>
-    </div>
+    </form>
     <ul id="listaTarefas">
+      @for (task of tasks; track $index) {
       <li>
-        <!-- Após implementar o javascript crie tarefas e teste os botões, veja se as funções de adicionar, editar e apagar estão funcionando. Se sim, 
-                    logo após apague essa lista (li) pois é apenas um item fictício -->
-        <span class="textoTarefa"> Tarefa 1</span>
-        <div>
-          <button class="btnAcao"><i class="fa fa-pencil"></i></button>
-          <button class="btnAcao"><i class="fa fa-trash"></i></button>
+        <span class="textoTarefa">{{ task.title }}</span>
+        <div class="icons">
+          <button class="btnAcao" (click)="editTask(task)"><i class="fa fa-pencil"></i></button>
+          <button class="btnAcao" (click)="deleteTask(task)"><i class="fa fa-trash"></i></button>
         </div>
       </li>
+      }
     </ul>
   </div>
-  <script type="module" src="/back//src//app//home.js"></script>
 </section>
