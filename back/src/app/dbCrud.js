@@ -1,6 +1,8 @@
 const conexaoDB=require('./db')//recebe os parametros para conexão com o banco de dados SQL
 
-const  receberUser = async ()=>{ // ---------------- FUNÇÃO SELECT -------------------------
+//---------------------------------------- RECEBER DADOS DAS TABELAS USER E TASK -----------------------------------------------------------
+
+const  receberUser = async ()=>{ // ---------------- FUNÇÃO SELECT USER-------------------------
   const con = await conexaoDB.conectar()
   
   const sql = 'SELECT * FROM user'
@@ -11,16 +13,38 @@ const  receberUser = async ()=>{ // ---------------- FUNÇÃO SELECT -----------
   
 }
 
-const  insertUser = async (user)=>{//--------------------------- FUNÇÃO INSERT ----------------------
+const  receberTaskUser = async (task)=>{ // ---------------- FUNÇÃO SELECT TASK-------------------------
+  const con = await conexaoDB.conectar()
+  
+  const sql = 'SELECT * FROM `task` WHERE task.user_id_fk = ?'
+  const valores =[task.id]
+
+  const [linhas] = await con.query(sql,valores)
+  return await linhas
+  
+  
+}
+
+//---------------------------------------- INSERT NAS TABELAS USER E TASK -----------------------------------------------------------
+const  insertUser = async (user)=>{//--------------------------- FUNÇÃO INSERT USER ----------------------
   const con = await conexaoDB.conectar()
   
   const sql = 'INSERT INTO user (nome_user,senha_user) VALUES (?,?)'
   const valores =[user.nome,user.senha] 
-  await con.query(sql,valores)
-  
-  
+  await con.query(sql,valores) 
   
 }
+
+const  insertTaskUser = async (idUser, user)=>{//--------------------------- FUNÇÃO INSERT TASK ----------------------
+  const con = await conexaoDB.conectar()
+  
+  const sql = 'INSERT INTO `task` (`id_task`, `task_task`, `user_id_fk`) VALUES (NULL, ?, idUser);'
+  const valores =[user.task] 
+  await con.query(sql,valores) 
+  
+}
+
+//---------------------------------------- ATUALIZAÇÃO NAS TABELAS USER E TASK -----------------------------------------------------------
 
 const  atualizaUser = async (idUser,user)=>{//---------------------------------- FUNÇÃO UPDATE ----------------------
   const con = await conexaoDB.conectar()
@@ -31,7 +55,18 @@ const  atualizaUser = async (idUser,user)=>{//----------------------------------
   
 }
 
-const  deletaUser = async (idUser)=>{ //--------------------------- FUNÇÃO DELETE -----------------------------------------
+const  atualizaTaskUser = async (task)=>{//---------------------------------- FUNÇÃO UPDATE ----------------------
+  const con = await conexaoDB.conectar()
+
+  const sql = "UPDATE `task` SET `task_task` = ? WHERE `task`.`id_task` = ?;"
+  const valores =[task.txt,task.id] 
+  await con.query(sql,valores)
+  
+}
+
+//---------------------------------------- DELETAR NAS TABELAS USER E TASK -----------------------------------------------------------
+
+const  deletaUser = async (idUser)=>{ //--------------------------- FUNÇÃO DELETE USER-----------------------------------------
   const con = await conexaoDB.conectar()
 
   const sql = 'DELETE FROM user WHERE id_user=?'
@@ -40,4 +75,13 @@ const  deletaUser = async (idUser)=>{ //--------------------------- FUNÇÃO DEL
   
 }
 
-module.exports = {receberUser,insertUser,atualizaUser,deletaUser}
+const  deletaTaskUser = async (idUser)=>{ //--------------------------- FUNÇÃO DELETE TASK-----------------------------------------
+  const con = await conexaoDB.conectar()
+
+  const sql = 'DELETE FROM user WHERE id_user=?'
+  const valores =[idUser] 
+  await con.query(sql,valores)
+  
+}
+
+module.exports = {receberUser,receberTaskUser,insertUser,atualizaUser,atualizaTaskUser,deletaUser,deletaTaskUser}
