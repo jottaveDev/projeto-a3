@@ -13,7 +13,6 @@ export default class TaskManager {
 
   addTask(task) {
     const newTask = {
-      id: Math.floor(Math.random() * (100 - 1 + 1)) + 1,
       title: task.title,
     };
     this.tasks.push(newTask);
