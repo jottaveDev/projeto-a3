@@ -1,5 +1,15 @@
 import { conectar } from './db.js';
 
+export const login = async (user) => {
+  const con = await conectar();
+  const sql = 'SELECT * FROM user WHERE email_user =? AND senha_user =?';
+  const valores = [user.email, user.password];
+  const [linhas] = await con.query(sql, valores);
+  console.log(linhas);
+  if (linhas.length > 0) return true;
+  return false;
+};
+
 export const receberUser = async () => {
   const con = await conectar();
   const sql = 'SELECT * FROM user';
@@ -17,8 +27,9 @@ export const receberTaskUser = async (user) => {
 
 export const insertUser = async (user) => {
   const con = await conectar();
-  const sql = 'INSERT INTO user (nome_user,senha_user) VALUES (?,?)';
-  const valores = [user.nome, user.senha];
+  const sql =
+    'INSERT INTO user (nome_user,email_user,senha_user) VALUES (?,?,?)';
+  const valores = [user.nome, user.email, user.senha];
   return await con.query(sql, valores);
 };
 

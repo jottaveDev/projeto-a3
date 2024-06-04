@@ -1,5 +1,11 @@
 import express from 'express';
-import { atualizaUser, deletaUser, insertUser, receberUser } from './dbCrud.js';
+import {
+  atualizaUser,
+  deletaUser,
+  insertUser,
+  login,
+  receberUser,
+} from './dbCrud.js';
 import TaskManager from './entities/TaskManager.js';
 import cors from './middlewares/cors.js';
 
@@ -15,18 +21,18 @@ app.get('/users', async (request, response) => {
   return response.json(users);
 });
 app.post('/users', async (request, response) => {
-  const { nome, senha } = request.body;
-  const user = { nome, senha };
+  const { nome, email, senha } = request.body;
+  const user = { nome, email, senha };
   await insertUser(user);
   return response.json(user);
 });
-app.post('/users/login', (request, response) => {
-  const { email, senha } = request.body;
-  const user = { email, senha };
-  if (user.email == '<EMAIL>' && user.senha == '<PASSWORD>') {
-    return response.json({ message: 'autenticado' });
-  }
-  return response.status(401).json({ message: 'Não autenticado' });
+app.post('/users/login', async (request, response) => {
+  const { email, password } = request.body;
+  const user = { email, password };
+  const userValid = await login(user);
+  if (!userValid)
+    return response.status(401).json({ message: 'Não autenticado' });
+  return response.status(200).json({ message: 'Autenticado' });
 });
 app.put('/users/:id', async (request, response) => {
   const { id } = request.params;
