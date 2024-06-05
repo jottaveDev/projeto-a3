@@ -9,6 +9,8 @@ class TaskController {
 
   async store(request, response) {
     const { title, idUser } = request.body;
+    if (!title)
+      return response.status(400).json({ message: 'Tarefa não informada' });
     const task = {
       user_id_fk: idUser,
       task_task: title,
@@ -20,6 +22,8 @@ class TaskController {
   async update(request, response) {
     const { id } = request.params;
     const { task_task } = request.body;
+    if (!task_task)
+      return response.status(400).json({ message: 'Tarefa não informada' });
     const task = {
       id_task: id,
       task_task: task_task,

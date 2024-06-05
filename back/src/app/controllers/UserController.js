@@ -15,6 +15,10 @@ class UserController {
   async store(request, response) {
     const { nome, email, senha } = request.body;
     const emailExists = await UserRepository.findByEmail(email);
+    if (!nome)
+      return response.status(400).json({ message: 'Nome não informado' });
+    if (!senha)
+      return response.status(400).json({ message: 'Senha não informada' });
     if (emailExists)
       return response.status(400).json({ message: 'E-mail já cadastrado' });
     const user = { nome, email, senha };
@@ -25,6 +29,10 @@ class UserController {
   async update(request, response) {
     const { id } = request.params;
     const { nome, senha } = request.body;
+    if (!nome)
+      return response.status(400).json({ message: 'Nome não informado' });
+    if (!senha)
+      return response.status(400).json({ message: 'Senha não informada' });
     const user = { nome, senha };
     const [updatedUser] = await UserRepository.update(id, user);
     response.json(updatedUser);
