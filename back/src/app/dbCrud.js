@@ -5,8 +5,7 @@ export const login = async (user) => {
   const sql = 'SELECT * FROM user WHERE email_user =? AND senha_user =?';
   const valores = [user.email, user.password];
   const [linhas] = await con.query(sql, valores);
-  console.log(linhas);
-  if (linhas.length > 0) return true;
+  if (linhas.length > 0) return linhas[0].id_user;
   return false;
 };
 
@@ -17,10 +16,10 @@ export const receberUser = async () => {
   return await linhas;
 };
 
-export const receberTaskUser = async (user) => {
+export const receberTaskUser = async (id) => {
   const con = await conectar();
   const sql = 'SELECT * FROM `task` WHERE task.user_id_fk = ?';
-  const valores = [user.id];
+  const valores = [id];
   const [linhas] = await con.query(sql, valores);
   return await linhas;
 };
@@ -38,7 +37,7 @@ export const insertTaskUser = async (task, idUser) => {
   const sql =
     'INSERT INTO `task` (`id_task`, `task_task`, `user_id_fk`) VALUES (NULL, ?, ?);';
   const valores = [task, idUser];
-  await con.query(sql, valores);
+  return await con.query(sql, valores);
 };
 
 export const atualizaUser = async (idUser, user) => {
