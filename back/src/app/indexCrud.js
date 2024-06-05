@@ -5,8 +5,9 @@
     //ATRIBUTOS OBRIGATÓRIOS PARA AS OPERAÇÕES DO CRUD
     const nome = "Chico"
     const senha= "123456"
-    const id = 3
+    const idUser = 3    
     const txtTask = 'fazendo teste'
+    const idTask = 1
 
     //Chamada da função para inseir usuario, sem retorno
     //await db.insertUser({nome: nome, senha: senha})
@@ -26,7 +27,7 @@
     // const task = await db.receberTaskUser({id:2})
     // console.log(task)
 
-    console.log('Select de todos os clientes')
+    console.log('Select de todos os usuarios')
     const usuarios = await db.receberUser() // Chamada de função para receber todos os usuarios
     console.log(usuarios)
 
