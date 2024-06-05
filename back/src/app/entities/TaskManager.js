@@ -1,21 +1,25 @@
+import { insertTaskUser, receberTaskUser } from '../dbCrud.js';
+
 export default class TaskManager {
   constructor() {
-    this.tasks = [
-      { id: 1, title: 'Estudar HTML' },
-      { id: 2, title: 'Estudar CSS' },
-      { id: 3, title: 'Estudar JS' },
-    ];
+    this.tasks = [];
   }
 
-  getTask(id) {
-    return this.tasks.find((task) => task.id === parseInt(id));
+  async getTasks(user) {
+    const tasks = await receberTaskUser(user);
+    this.tasks = tasks;
+    return this.tasks;
   }
 
-  addTask(task) {
-    const newTask = {
-      title: task.title,
-    };
-    this.tasks.push(newTask);
+  async getTask(id) {
+    const tasks = await receberTaskUser(id);
+    this.tasks = tasks;
+    return this.tasks;
+  }
+
+  async addTask(task, userId) {
+    const newTask = await insertTaskUser(task, userId);
+    this.tasks.push(task);
     return newTask;
   }
 

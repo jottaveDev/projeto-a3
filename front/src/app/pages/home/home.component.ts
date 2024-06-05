@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   editTask(task: any) {
-    this.router.navigate([/home/edit/${task.id}], {
+    this.router.navigate([`/home/edit/${task.id}`], {
       state: { data: task },
     });
   }
