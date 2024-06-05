@@ -63,7 +63,7 @@ export const deletaUser = async (idUser) => {
 
 export const deletaTaskUser = async (idTask) => {
   const con = await conectar();
-  const sql = '"DELETE FROM task WHERE `task`.`id_task` = ?"';
+  const sql = 'DELETE FROM task WHERE `task`.`id_task` = ?';
   const valores = [idTask];
   await con.query(sql, valores);
 };
