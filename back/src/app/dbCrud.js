@@ -32,11 +32,11 @@ export const insertUser = async (user) => {
   return await con.query(sql, valores);
 };
 
-export const insertTaskUser = async (task, idUser) => {
+export const insertTaskUser = async ({ task_task, user_id_fk }) => {
   const con = await conectar();
   const sql =
-    'INSERT INTO `task` (`id_task`, `task_task`, `user_id_fk`) VALUES (NULL, ?, ?);';
-  const valores = [task, idUser];
+    'INSERT INTO `task` (`id_task`, `task_task`, `user_id_fk`) VALUES (NULL, ?, ?) RETURNING *;';
+  const valores = [task_task, user_id_fk];
   return await con.query(sql, valores);
 };
 
@@ -50,8 +50,8 @@ export const atualizaUser = async (idUser, user) => {
 export const atualizaTaskUser = async (task) => {
   const con = await conectar();
   const sql = 'UPDATE `task` SET `task_task` = ? WHERE `task`.`id_task` = ?;';
-  const valores = [task.txt, task.id];
-  await con.query(sql, valores);
+  const valores = [task.task_task, task.id_task];
+  return await con.query(sql, valores);
 };
 
 export const deletaUser = async (idUser) => {
@@ -63,7 +63,7 @@ export const deletaUser = async (idUser) => {
 
 export const deletaTaskUser = async (idTask) => {
   const con = await conectar();
-  const sql = '"DELETE FROM task WHERE `task`.`id_task` = ?"';
+  const sql = 'DELETE FROM task WHERE `task`.`id_task` = ?';
   const valores = [idTask];
-  await con.query(sql, valores);
+  return await con.query(sql, valores);
 };
