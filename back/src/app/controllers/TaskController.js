@@ -9,8 +9,11 @@ class TaskController {
 
   async store(request, response) {
     const { title, idUser } = request.body;
+    const taskExists = await TaskRepository.findByTask(title);
     if (!title)
       return response.status(400).json({ message: 'Tarefa não informada' });
+    if (taskExists)
+      return response.status(400).json({ message: 'Tarefa já cadastrada' });
     const task = {
       user_id_fk: idUser,
       task_task: title,

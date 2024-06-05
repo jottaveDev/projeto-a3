@@ -85,3 +85,11 @@ export const verificaEmail = async (idUser) => {
   const [linha] = await con.query(sql, valores);
   return await linha;
 };
+
+export const verificaTask = async (task) => {
+  const con = await conectar();
+  const sql = 'SELECT * FROM task WHERE task_task =?';
+  const valores = [task];
+  const [linha] = await con.query(sql, valores);
+  return await linha;
+};

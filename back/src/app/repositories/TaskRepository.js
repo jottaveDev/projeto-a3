@@ -3,6 +3,7 @@ import {
   deletaTaskUser,
   insertTaskUser,
   receberTaskUser,
+  verificaTask,
 } from '../dbCrud.js';
 
 class TaskRepository {
@@ -14,6 +15,11 @@ class TaskRepository {
   async findById(id) {
     const task = await receberTaskUser(id);
     return task;
+  }
+
+  async findByTask(task) {
+    const [taskResult] = await verificaTask(task);
+    return taskResult;
   }
 
   async create(task) {
