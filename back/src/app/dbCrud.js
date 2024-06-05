@@ -16,6 +16,14 @@ export const receberUser = async () => {
   return await linhas;
 };
 
+export const receberUserId = async (id) => {
+  const con = await conectar();
+  const sql = 'SELECT * FROM user WHERE id_user =?';
+  const valores = [id];
+  const [linha] = await con.query(sql, valores);
+  return await linha;
+};
+
 export const receberTaskUser = async (id) => {
   const con = await conectar();
   const sql = 'SELECT * FROM `task` WHERE task.user_id_fk = ?';
@@ -27,7 +35,7 @@ export const receberTaskUser = async (id) => {
 export const insertUser = async (user) => {
   const con = await conectar();
   const sql =
-    'INSERT INTO user (nome_user,email_user,senha_user) VALUES (?,?,?)';
+    'INSERT INTO user (nome_user,email_user,senha_user) VALUES (?,?,?)RETURNING *;';
   const valores = [user.nome, user.email, user.senha];
   return await con.query(sql, valores);
 };
@@ -42,9 +50,11 @@ export const insertTaskUser = async ({ task_task, user_id_fk }) => {
 
 export const atualizaUser = async (idUser, user) => {
   const con = await conectar();
-  const sql = 'UPDATE user SET nome_user=?,senha_user=? WHERE id_user=?';
+  const sql = 'UPDATE user SET nome_user=?,senha_user=? WHERE id_user=?;';
+  const sqlReturn = 'SELECT * FROM user WHERE id_user=?;';
   const valores = [user.nome, user.senha, idUser];
   await con.query(sql, valores);
+  return await con.query(sqlReturn, idUser);
 };
 
 export const atualizaTaskUser = async (task) => {
@@ -58,7 +68,7 @@ export const deletaUser = async (idUser) => {
   const con = await conectar();
   const sql = 'DELETE FROM user WHERE id_user=?';
   const valores = [idUser];
-  await con.query(sql, valores);
+  return await con.query(sql, valores);
 };
 
 export const deletaTaskUser = async (idTask) => {
@@ -66,4 +76,12 @@ export const deletaTaskUser = async (idTask) => {
   const sql = 'DELETE FROM task WHERE `task`.`id_task` = ?';
   const valores = [idTask];
   return await con.query(sql, valores);
+};
+
+export const verificaEmail = async (idUser) => {
+  const con = await conectar();
+  const sql = 'SELECT * FROM user WHERE email_user =?';
+  const valores = [idUser];
+  const [linha] = await con.query(sql, valores);
+  return await linha;
 };
