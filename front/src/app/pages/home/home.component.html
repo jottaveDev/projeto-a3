@@ -7,9 +7,9 @@
       <button id="btnAddTarefa"><i class="fa fa-plus"></i></button>
     </form>
     <ul id="listaTarefas">
-      @for (task of tasks; track $index) {
+      @for (task of tasks; track task) {
       <li>
-        <span class="textoTarefa">{{ task.title }}</span>
+        <span class="textoTarefa">{{ task.task_task }}</span>
         <div class="icons">
           <button class="btnAcao" (click)="editTask(task)"><i class="fa fa-pencil"></i></button>
           <button class="btnAcao" (click)="deleteTask(task)"><i class="fa fa-trash"></i></button>
