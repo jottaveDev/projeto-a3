@@ -3,13 +3,13 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <h1>Registrar</h1>
             <div class="caixa-texto">
-                <input type="text" placeholder="Nome" formControlName="name">
+                <input type="text" placeholder="Nome" formControlName="nome">
             </div>
             <div class="caixa-texto">
                 <input type="Email" placeholder="Email" formControlName="email">
             </div>
             <div class="caixa-texto">
-                <input type="password" placeholder="Senha" formControlName="password">
+                <input type="password" placeholder="Senha" formControlName="senha">
             </div>
             <button type="submit" [disabled]="form.invalid">Registrar</button>
         </form>

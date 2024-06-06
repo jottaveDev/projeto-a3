@@ -6,6 +6,7 @@ import {
   Validators as V,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,15 +16,25 @@ import { Router } from '@angular/router';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   form: FormGroup = this.formBuilder.group({
-    name: ['', [V.required]],
+    nome: ['', [V.required]],
     email: ['', [V.required, V.email]],
-    password: ['', [V.required, V.minLength(6)]],
+    senha: ['', [V.required, V.minLength(6)]],
   });
 
   onSubmit() {
-    if (this.form.valid) this.router.navigate(['/login']);
+    if (this.form.valid) {
+      this.authService.register(this.form.value).subscribe({
+        next: () => this.router.navigate(['/login']),
+        error: (err) => console.error(err),
+      });
+      this.router.navigate(['/login']);
+    }
   }
 }
