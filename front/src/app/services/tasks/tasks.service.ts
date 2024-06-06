@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class ContactsService {
+export class TasksService {
   constructor(private http: HttpClient) {}
 
   private url = 'http://localhost:3000';
 
-  getTasks() {
-    return this.http.get(`${this.url}/tasks`);
+  getTasks(id: string) {
+    return this.http.get(`${this.url}/tasks/${id}`);
   }
 
   postTask(task: any) {
@@ -18,10 +18,10 @@ export class ContactsService {
   }
 
   editTask(task: any) {
-    return this.http.put(`${this.url}/tasks/${task.id}`, task);
+    return this.http.put(`${this.url}/tasks/${task.id_task}`, task);
   }
 
   deleteTask(task: any) {
-    return this.http.delete(`${this.url}/tasks/${task.id}`);
+    return this.http.delete(`${this.url}/tasks/${task.id_task}`);
   }
 }
