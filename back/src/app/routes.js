@@ -10,7 +10,7 @@ routes.post('/login', async (request, response) => {
   const user = { email, password };
   const id = await login(user);
   if (!id) return response.status(401).json({ message: 'Não autenticado' });
-  return response.status(200).json({ message: 'Autenticado' });
+  return response.status(200).json({ message: 'Autenticado', id });
 });
 
 routes.get('/users', UserController.index);
