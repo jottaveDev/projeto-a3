@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ContactsService } from 'src/app/services/contacts/contacts.service';
+import { TasksService } from 'src/app/services/tasks/tasks.service';
 
 @Component({
   selector: 'app-edit',
@@ -11,10 +11,7 @@ import { ContactsService } from 'src/app/services/contacts/contacts.service';
   styleUrl: './edit.component.css',
 })
 export class EditComponent implements OnInit {
-  constructor(
-    private contactsService: ContactsService,
-    private router: Router
-  ) {}
+  constructor(private tasksSerivce: TasksService, private router: Router) {}
 
   protected task: any;
 
@@ -23,7 +20,7 @@ export class EditComponent implements OnInit {
   }
 
   edit(task: any) {
-    this.contactsService.editTask(task).subscribe({
+    this.tasksSerivce.editTask(task).subscribe({
       next: () => this.router.navigate(['/home']),
       error: (err) => console.error(err),
     });
