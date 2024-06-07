@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import Task from 'src/app/models/Task.model';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 
 @Component({
@@ -33,13 +32,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  editTask(task: Task) {
+  editTask(task: any) {
     this.router.navigate([`/home/edit/${task.id_task}`], {
       state: { data: task },
     });
   }
 
-  deleteTask(task: Task) {
+  deleteTask(task: any) {
     this.tasksService.deleteTask(task).subscribe({
       next: () => this.tasks.splice(this.tasks.indexOf(task), 1),
       error: (err) => console.error(err),
