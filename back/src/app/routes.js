@@ -6,7 +6,7 @@ import { login } from './dbCrud.js';
 const routes = Router();
 
 routes.post('/login', async (request, response) => {
-  const { email, password } = request.body;
+  let { email, password } = request.body;
   const user = { email, password };
   const id = await login(user);
   if (!id) return response.status(401).json({ message: 'Não autenticado' });

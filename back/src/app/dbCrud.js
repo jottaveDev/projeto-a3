@@ -1,11 +1,20 @@
+import bcrypt from 'bcrypt';
 import { conectar } from './db.js';
 
 export const login = async (user) => {
   const con = await conectar();
-  const sql = 'SELECT * FROM user WHERE email_user =? AND senha_user =?';
-  const valores = [user.email, user.password];
+  const sql = 'SELECT * FROM user WHERE email_user = ?';
+  const valores = [user.email];
   const [linhas] = await con.query(sql, valores);
-  if (linhas.length > 0) return linhas[0].id_user;
+
+  if (linhas.length > 0) {
+    const userPasswordHash = linhas[0].senha_user;
+    console.log(user.password, userPasswordHash);
+    const isValidPassword = bcrypt.compareSync(user.password, userPasswordHash);
+    console.log(isValidPassword);
+    if (isValidPassword) return linhas[0].id_user;
+  }
+
   return false;
 };
 
