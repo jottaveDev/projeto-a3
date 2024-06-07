@@ -1,28 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators as V,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
-  templateUrl: './edit.component.html',
-  styleUrl: './edit.component.css',
+  imports: [ReactiveFormsModule],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css',
 })
-export class EditComponent implements OnInit {
-  constructor(private tasksSerivce: TasksService, private router: Router) {}
+export class LoginComponent {
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {}
 
-  protected task: any;
+  form: FormGroup = this.formBuilder.group({
+    email: ['', [V.required, V.email]],
+    password: ['', [V.required, V.minLength(6)]],
+  });
 
-  ngOnInit(): void {
-    this.task = history.state.data;
+  navigateByRegister() {
+    this.router.navigate(['/register']);
   }
 
-  edit(task: any) {
-    this.tasksSerivce.editTask(task).subscribe({
-      next: () => this.router.navigate(['/home']),
-      error: (err) => console.error(err),
-    });
+  onSubmit() {
+    if (this.form.valid) {
+      this.authService.login(this.form.value).subscribe({
+        next: (data: any) => {
+          localStorage.setItem('token', data.id);
+          this.router.navigate(['/home']);
+        },
+        error: (err) => console.error(err),
+      });
+    }
   }
 }
