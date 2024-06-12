@@ -24,7 +24,7 @@ export class LoginComponent {
 
   form: FormGroup = this.formBuilder.group({
     email: ['', [V.required, V.email]],
-    password: ['', [V.required, V.minLength(6)]],
+    senha: ['', [V.required, V.minLength(6)]],
   });
 
   navigateByRegister() {
