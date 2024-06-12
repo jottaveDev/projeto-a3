@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -21,6 +22,8 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private authService: AuthService
   ) {}
+
+  messageError: string = '';
 
   form: FormGroup = this.formBuilder.group({
     email: ['', [V.required, V.email]],
@@ -38,7 +41,10 @@ export class LoginComponent {
           localStorage.setItem('token', data.id);
           this.router.navigate(['/home']);
         },
-        error: (err) => console.error(err),
+        error: (err) => {
+          console.error(err);
+          this.messageError = err.error.message;
+        },
       });
     }
   }

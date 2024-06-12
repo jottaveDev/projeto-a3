@@ -88,3 +88,9 @@
 .link-resgistro p a:hover {
   text-decoration: underline;
 }
+
+.error {
+  display: block;
+  color: red;
+  margin-bottom: 1rem;
+}
