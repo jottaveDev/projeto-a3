@@ -6,15 +6,11 @@ export const login = async (user) => {
   const sql = 'SELECT * FROM user WHERE email_user = ?';
   const valores = [user.email];
   const [linhas] = await con.query(sql, valores);
-
   if (linhas.length > 0) {
-    const userPasswordHash = linhas[0].senha_user;
-    console.log(user.password, userPasswordHash);
-    const isValidPassword = bcrypt.compareSync(user.password, userPasswordHash);
-    console.log(isValidPassword);
+    const hash = linhas[0].senha_user;
+    const isValidPassword = await bcrypt.compare(user.senha, hash);
     if (isValidPassword) return linhas[0].id_user;
   }
-
   return false;
 };
 

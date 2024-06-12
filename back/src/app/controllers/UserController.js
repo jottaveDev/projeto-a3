@@ -14,7 +14,7 @@ class UserController {
   }
 
   async store(request, response) {
-    let { nome, email, senha } = request.body;
+    const { nome, email, senha } = request.body;
     const emailExists = await UserRepository.findByEmail(email);
     if (!nome)
       return response.status(400).json({ message: 'Nome não informado' });
@@ -22,10 +22,8 @@ class UserController {
       return response.status(400).json({ message: 'Senha não informada' });
     if (emailExists)
       return response.status(400).json({ message: 'E-mail já cadastrado' });
-    const hash = bcrypt.hashSync(senha, 10);
-    senha = hash;
-    const user = { nome, email, senha };
-    const newUser = await UserRepository.create(user);
+    const hash = await bcrypt.hash(senha, 10);
+    const [newUser] = await UserRepository.create({ nome, email, senha: hash });
     response.json(newUser);
   }
 
