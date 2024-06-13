@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ToastModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
+  providers: [MessageService],
 })
 export class HomeComponent implements OnInit {
-  constructor(private tasksService: TasksService, private router: Router) {}
+  constructor(
+    private tasksService: TasksService,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   protected tasks: any;
   protected inputValue: string = '';
@@ -21,7 +28,14 @@ export class HomeComponent implements OnInit {
     if (this.id !== null) {
       this.tasksService.getTasks(this.id).subscribe({
         next: (res) => (this.tasks = res),
-        error: (err) => console.log(err),
+        error: (err) => {
+          console.log(err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Erro inesperado!',
+          });
+        },
       });
       return;
     }
@@ -31,8 +45,23 @@ export class HomeComponent implements OnInit {
   addTask(title: string) {
     if (title === '') return;
     this.tasksService.postTask({ title: title, idUser: this.id }).subscribe({
-      next: (res) => this.tasks.push(res),
-      error: (err) => console.error(err),
+      next: (res) => {
+        this.tasks.push(res);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Tarefa adicionada com sucesso!',
+        });
+        this.inputValue = '';
+      },
+      error: (err) => {
+        console.error(err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.error.message,
+        });
+      },
     });
   }
 
@@ -44,8 +73,22 @@ export class HomeComponent implements OnInit {
 
   deleteTask(task: any) {
     this.tasksService.deleteTask(task).subscribe({
-      next: () => this.tasks.splice(this.tasks.indexOf(task), 1),
-      error: (err) => console.error(err),
+      next: () => {
+        this.tasks.splice(this.tasks.indexOf(task), 1);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Tarefa excluida com sucesso!',
+        });
+      },
+      error: (err) => {
+        console.error(err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Erro ao excluir tarefa!',
+        });
+      },
     });
   }
 }
