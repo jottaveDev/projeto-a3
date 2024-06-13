@@ -15,13 +15,17 @@ export class HomeComponent implements OnInit {
 
   protected tasks: any;
   protected inputValue: string = '';
-  protected id = localStorage.getItem('token')!;
+  protected id = localStorage.getItem('token');
 
   ngOnInit() {
-    this.tasksService.getTasks(this.id).subscribe({
-      next: (res) => (this.tasks = res),
-      error: (err) => console.log(err),
-    });
+    if (this.id !== null) {
+      this.tasksService.getTasks(this.id).subscribe({
+        next: (res) => (this.tasks = res),
+        error: (err) => console.log(err),
+      });
+      return;
+    }
+    this.router.navigate(['/login']);
   }
 
   addTask(title: string) {

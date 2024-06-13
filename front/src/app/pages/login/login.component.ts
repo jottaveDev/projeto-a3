@@ -7,23 +7,26 @@ import {
   Validators as V,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, ToastModule, RippleModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
+  providers: [MessageService],
 })
 export class LoginComponent {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) {}
-
-  messageError: string = '';
 
   form: FormGroup = this.formBuilder.group({
     email: ['', [V.required, V.email]],
@@ -39,11 +42,22 @@ export class LoginComponent {
       this.authService.login(this.form.value).subscribe({
         next: (data: any) => {
           localStorage.setItem('token', data.id);
-          this.router.navigate(['/home']);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Login feito com sucesso!',
+          });
+          setTimeout(() => {
+            this.router.navigate(['/home']);
+          }, 1500);
         },
         error: (err) => {
           console.error(err);
-          this.messageError = err.error.message;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error.message,
+          });
         },
       });
     }

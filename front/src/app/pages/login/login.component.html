@@ -1,4 +1,7 @@
 <div class="conteiner">
+    <div class="card flex justify-content-center">
+        <p-toast />
+    </div>
     <div class="embrulho">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <h1>Login</h1>
@@ -8,9 +11,6 @@
             <div class="caixa-texto">
                 <input type="password" placeholder="Senha" formControlName="senha">
             </div>
-            @if (messageError) {
-            <span class="error">{{messageError}}</span>
-            }
             <button type="submit" [disabled]="form.invalid">Login</button>
             <div class="link-resgistro">
                 <p>Não tem uma conta? <a (click)="navigateByRegister()">Registre-se!</a></p>
