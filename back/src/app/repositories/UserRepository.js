@@ -2,6 +2,7 @@ import {
   atualizaUser,
   deletaUser,
   insertUser,
+  login,
   receberUser,
   receberUserId,
   verificaEmail,
@@ -36,6 +37,11 @@ class UserRepository {
   async delete(id) {
     const deleted = await deletaUser(id);
     return deleted;
+  }
+
+  async authenticate(user) {
+    const id = await login(user);
+    return id;
   }
 }
 

@@ -1,16 +1,10 @@
 import { Router } from 'express';
 import TaskController from './controllers/TaskController.js';
 import UserController from './controllers/UserController.js';
-import { login } from './dbCrud.js';
 
 const routes = Router();
 
-routes.post('/login', async (request, response) => {
-  const { email, senha } = request.body;
-  const id = await login({ email, senha });
-  if (!id) return response.status(401).json({ message: 'Não autenticado' });
-  return response.status(200).json({ message: 'Autenticado', id });
-});
+routes.post('/login', UserController.login);
 
 routes.get('/users', UserController.index);
 routes.get('/users/:id', UserController.show);
