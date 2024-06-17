@@ -1,0 +1,25 @@
+<section class="container">
+  <div class="conteudo">
+    <h1 class="title">Editar Perfil</h1>
+    <form class="topo" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name" class="mb-2 pl-1 block">Nome</label>
+        <input type="text" id="name" formControlName="nome" />
+      </div>
+      <div>
+        <label for="email" class="mb-2 pl-1 block">Email</label>
+        <input type="text" id="email" formControlName="email" />
+      </div>
+      <div>
+        <label for="senha" class="mb-2 pl-1 block">Senha</label>
+        <input type="password" id="senha" formControlName="senha" />
+      </div>
+      <button class="btnAddTarefa" type="submit"><i class="fa fa-edit"></i>Editar</button>
+    </form>
+    <div class="card flex justify-content-center">
+      <p-toast />
+      <p-confirmPopup />
+      <button class="btnAddTarefa" (click)="confirm2($event)"><i class="fa fa-trash"></i>Excluir</button>
+    </div>
+  </div>
+</section>

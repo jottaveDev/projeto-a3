@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { EditComponent } from './pages/home/edit/edit.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ProfileComponent } from './pages/home/profile/profile.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 
@@ -16,6 +17,10 @@ export const routes: Routes = [
       {
         path: 'edit/:id',
         component: EditComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
       },
     ],
   },

@@ -3,7 +3,11 @@
   <div class="card flex justify-content-center">
     <p-toast />
   </div>
-  <div class="conteudo">
+  <div class="conteudo relative">
+    <div class="card flex justify-content-center gap-2">
+      <p-button icon="pi pi-cog" severity="secondary" [rounded]="true" size="small" (onClick)="navigateProfile()" />
+      <p-button icon="pi pi-sign-out" severity="secondary" [rounded]="true" size="small" (onClick)="logout()" />
+    </div>
     <h1 class="title">Lista de Tarefas</h1>
     <form class="topo" (ngSubmit)="addTask(inputValue)">
       <input type="text" id="inputNovaTarefa" name="task" placeholder="Adicione uma nova tarefa" [(ngModel)]="inputValue" />

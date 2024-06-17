@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, ToastModule],
+  imports: [FormsModule, ToastModule, MenuModule, ButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   providers: [MessageService],
@@ -90,5 +92,14 @@ export class HomeComponent implements OnInit {
         });
       },
     });
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
+  navigateProfile() {
+    this.router.navigate(['/home/profile']);
   }
 }
