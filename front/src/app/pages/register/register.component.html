@@ -15,6 +15,9 @@
                 <input type="password" placeholder="Senha" formControlName="senha">
             </div>
             <button type="submit" [disabled]="form.invalid">Registrar</button>
+            <div class="link-resgistro">
+                <p>Já tem uma conta? <a (click)="navigateByLogin()">Faça login!</a></p>
+            </div>
         </form>
     </div>
 </div>
