@@ -55,9 +55,16 @@ export const insertTaskUser = async ({ task_task, user_id_fk }) => {
 
 export const atualizaUser = async (idUser, user) => {
   const con = await conectar();
-  const sql = 'UPDATE user SET nome_user=?,senha_user=? WHERE id_user=?;';
+  let sql, valores;
+  if (user.senha) {
+    sql =
+      'UPDATE user SET nome_user=?, senha_user=?, email_user=? WHERE id_user=?';
+    valores = [user.nome, user.senha, user.email, idUser];
+  } else {
+    sql = 'UPDATE user SET nome_user=?, email_user=? WHERE id_user=?';
+    valores = [user.nome, user.email, idUser];
+  }
   const sqlReturn = 'SELECT * FROM user WHERE id_user=?;';
-  const valores = [user.nome, user.senha, idUser];
   await con.query(sql, valores);
   return await con.query(sqlReturn, idUser);
 };

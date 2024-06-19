@@ -35,17 +35,22 @@ class UserController {
   async update(request, response) {
     const { id } = request.params;
     const { nome, email, senha } = request.body;
+    const user = {};
     if (!nome)
       return response.status(400).json({ message: 'Nome não informado' });
-    if (!senha || senha.length < 6)
+    if (senha && senha.length < 6)
       return response
         .status(400)
         .json({ message: 'A senha deve ter no minimo 6 caracteres' });
     if (!email) {
       return response.status(400).json({ message: 'Email não informado' });
     }
-    const hash = await bcrypt.hash(senha, 10);
-    const user = { nome, email, senha: hash };
+    if (nome) user.nome = nome;
+    if (email) user.email = email;
+    if (senha) {
+      const hash = await bcrypt.hash(senha, 10);
+      user.senha = hash;
+    }
     const [updatedUser] = await UserRepository.update(id, user);
     response.json(updatedUser);
   }
