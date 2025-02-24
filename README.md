@@ -1,8 +1,21 @@
-# projeto-a3
+# Lista de Tarefas 
 
 Projeto acadêmico proposto pelos professores Thomas e Hissamu da faculdade UNIFG-BA.
 A proposta é uma aplicação de CRUD com o tema escolhido pelo grupo.
 Desenvolvemos uma lista de tarefas, na qual o usuário pode criar, visualizar, editar e excluir suas atividades do dia a dia.
+
+### Resultado
+
+Tivemos nota máxima no projeto, sendo destacado a boa escrita e organização do código.
+
+### Participantes
+
+* João Victor Alves da Silva
+* Felipe Andrade
+* Murilo Teixeira
+* Thais Fernandes
+* Carlos César
+* Carlos André
 
 ### Tecnologias Utilizadas
 
